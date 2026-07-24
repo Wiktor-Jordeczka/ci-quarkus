@@ -28,12 +28,12 @@ jobs:
     with:
       platform: ''
       args: '-Ob' # enable quick build mode
-  helm:
-    if: |
-      !cancelled()
-      && needs.quarkus.result == 'success'
-      && needs.liquibase.result == 'success'
-      && ( !inputs.native || needs.native.result == 'success')  
-    uses: onecx-apps/ci-common/.github/workflows/helm-build.yml@v3
-    needs: [quarkus, native, liquibase]
-    secrets: inherit
+  # helm:
+  #   if: |
+  #     !cancelled()
+  #     && needs.quarkus.result == 'success'
+  #     && needs.liquibase.result == 'success'
+  #     && ( !inputs.native || needs.native.result == 'success')
+  #   uses: onecx-apps/ci-common/.github/workflows/helm-build.yml@v3
+  #   needs: [quarkus, native, liquibase]
+  #   secrets: inherit
