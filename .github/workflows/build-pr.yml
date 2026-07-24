@@ -11,22 +11,22 @@ on:
 
 jobs:
   dependency-review:
-    uses: onecx-apps/ci-common/.github/workflows/dependency-review.yml@v2
+    uses: onecx-apps/ci-common/.github/workflows/dependency-review.yml@v3
     secrets: inherit
   code-ql:
-    uses: onecx-apps/ci-quarkus/.github/workflows/quarkus-codeql.yml@v2
+    uses: onecx-apps/ci-quarkus/.github/workflows/quarkus-codeql.yml@v3
     secrets: inherit
   quarkus:
-    uses: onecx-apps/ci-quarkus/.github/workflows/quarkus-build.yml@v2
+    uses: onecx-apps/ci-quarkus/.github/workflows/quarkus-build.yml@v3
     secrets: inherit
     with:
       platform: ''    
   liquibase:
-    uses: onecx-apps/ci-quarkus/.github/workflows/quarkus-liquibase.yml@v2
+    uses: onecx-apps/ci-quarkus/.github/workflows/quarkus-liquibase.yml@v3
     secrets: inherit
   native:
     if: ${{ inputs.native }}
-    uses: onecx-apps/ci-quarkus/.github/workflows/quarkus-build-native.yml@v2
+    uses: onecx-apps/ci-quarkus/.github/workflows/quarkus-build-native.yml@v3
     secrets: inherit
     needs: [quarkus, liquibase]
     with:
@@ -38,6 +38,6 @@ jobs:
       && needs.quarkus.result == 'success'
       && needs.liquibase.result == 'success'
       && ( !inputs.native || needs.native.result == 'success')   
-    uses: onecx-apps/ci-common/.github/workflows/helm-build.yml@v2
+    uses: onecx-apps/ci-common/.github/workflows/helm-build.yml@v3
     needs: [quarkus, native, liquibase]
     secrets: inherit
